@@ -76,5 +76,26 @@
         jAjax.request("POST", url, true, false, params, onsuccess, null);
     };
 
+    jAjax.upload = function (url, fileinputid, onsuccess, onerror) {
+        var formData = new FormData();
+        var name = document.getElementById(fileinputid).getAttribute("name");
+        var value = document.getElementById(fileinputid).files[0];
+        formData.append(name, value);
+        var xhr = new XMLHttpRequest();
+        var response = {};
+        xhr.open("POST", encodeURI(url), true);
+        xhr.send(formData);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    response = JSON.parse(xhr.responseText);
+                    onsuccess(response);
+                } else {
+                    onerror();
+                }
+            }
+        }
+    };
+
     window.jAjax = jAjax;
 })();
