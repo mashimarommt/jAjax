@@ -45,8 +45,8 @@
             }
         } else if (method.toUpperCase() == "POST") {
             xhr.open("POST", encodeURI(url), async);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send(toRequestParams(params));
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(params));
             if (!async) {
                 if (xhr.status == 200) {
                     response = JSON.parse(xhr.responseText);
